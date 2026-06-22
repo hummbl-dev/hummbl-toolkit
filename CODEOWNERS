@@ -1,0 +1,7 @@
+# CODEOWNERS — hummbl-dev/hummbl-toolkit
+CONSTITUTION.md          @reubenbowlby
+KRINEIA.md               @reubenbowlby
+hummbl.repo.yaml         @reubenbowlby
+CODEOWNERS               @reubenbowlby
+_receipts/               @reubenbowlby
+*                        @reubenbowlby
