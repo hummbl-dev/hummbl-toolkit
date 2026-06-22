@@ -1,0 +1,49 @@
+# MITRE ATT&CK Emulation Playbook: Lazarus Group
+# Source: MITRE ATT&CK v14.1, Lazarus Group Enterprise profile
+# Purpose: Demonstrate governed adversary emulation with HUMMBL audit trails
+# Safety: All steps are lab-only simulations. No real exploits are executed.
+
+id: lazarus-initial-access-exfiltration
+threat_actor: Lazarus Group
+description: |
+  Emulates Lazarus Group's initial access via spear-phishing
+  and data exfiltration via cloud services. All actions are
+  simulated in a lab environment with full audit logging.
+mitre_version: "14.1"
+
+steps:
+  - technique_id: T1566.002
+    technique_name: Spearphishing Link
+    tactic: initial-access
+    description: |
+      Simulates a spear-phishing email containing a malicious link.
+      Lazarus frequently uses job-themed phishing lures.
+    expected_detection:
+      - sigma_phishing_link_click
+      - sigma_suspicious_url_domain
+    lab_only: true
+    target_hosts: []
+
+  - technique_id: T1059.003
+    technique_name: Windows Command Shell
+    tactic: execution
+    description: |
+      Simulates command shell execution for payload staging.
+      Lazarus uses cmd.exe and batch scripts for operational tasks.
+    expected_detection:
+      - sigma_cmd_suspicious_execution
+      - sigma_bat_file_suspicious
+    lab_only: true
+    target_hosts: []
+
+  - technique_id: T1020
+    technique_name: Automated Exfiltration
+    tactic: exfiltration
+    description: |
+      Simulates automated data staging and exfiltration.
+      Lazarus has been observed exfiltrating data to cloud storage.
+    expected_detection:
+      - sigma_large_outbound_transfer
+      - sigma_cloud_upload_anomaly
+    lab_only: true
+    target_hosts: []

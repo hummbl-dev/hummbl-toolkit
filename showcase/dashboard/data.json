@@ -1,0 +1,38 @@
+{
+  "briefing": "\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n HUMMBL Morning Briefing \u2014 2026-06-03\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nHealth: 4/4 probes passing\nGitHub: 2 open PRs, 2 issues need attention\nCalendar: 3 events today\nLinear: 2 tickets in progress, 1 blocked\nCost: $12.40 / $50.00 budget (25%)\nGovernance: Kill switch DISENGAGED, all circuits CLOSED\n\nAgents active: claude-code, codex, gemini\nTop issue: #101 \u2014 Flaky test in coordination bus (assigned: claude-code)\n\nGenerated in 0.03s by founder-mode-showcase v0.1.0\nBus messages: 5 coordination events logged\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+  "health": [
+    {
+      "adapter": "github",
+      "status": "healthy",
+      "latency_ms": 12
+    },
+    {
+      "adapter": "calendar",
+      "status": "healthy",
+      "latency_ms": 8
+    },
+    {
+      "adapter": "linear",
+      "status": "healthy",
+      "latency_ms": 15
+    },
+    {
+      "adapter": "cost",
+      "status": "healthy",
+      "latency_ms": 5
+    }
+  ],
+  "kill_switch": "DISENGAGED",
+  "circuits": {
+    "github": "CLOSED",
+    "calendar": "CLOSED",
+    "linear": "CLOSED",
+    "cost": "CLOSED"
+  },
+  "cost": {
+    "spent": 0.078,
+    "budget": 100.0,
+    "decision": "ALLOW"
+  },
+  "bus_messages": 5
+}

@@ -1,0 +1,30 @@
+[project]
+name = "adversary-emulation-playbook"
+version = "0.1.0"
+description = "MITRE ATT&CK adversary emulation with HUMMBL governance audit trails"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+# Tier 1: stdlib-only core; optional extras for visualization
+# Dependencies kept empty for core safety; hummbl-governance is Tier 1 (stdlib-only core)
+dependencies = ["hummbl-governance>=1.0.0"]
+
+[project.optional-dependencies]
+visualize = ["matplotlib>=3.7"]  # ATT&CK navigator-style coverage plots
+dev = ["pytest>=7.0", "pytest-cov>=4.0", "mypy>=1.0"]
+
+[project.scripts]
+aep-emulate = "adversary_emulation_playbook.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=adversary_emulation_playbook --cov-report=term --cov-fail-under=80"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,61 @@
+# MITRE ATT&CK Emulation Playbook: APT28 (Fancy Bear)
+# Source: MITRE ATT&CK v14.1, APT28 Enterprise group profile
+# Purpose: Demonstrate governed adversary emulation with HUMMBL audit trails
+# Safety: All steps are lab-only simulations. No real exploits are executed.
+
+id: apt28-initial-access-and-persistence
+threat_actor: APT28 (Fancy Bear)
+description: |
+  Emulates APT28's initial access and persistence tactics using
+  spear-phishing and scheduled task persistence. All actions are
+  simulated in a lab environment with full audit logging.
+mitre_version: "14.1"
+
+steps:
+  - technique_id: T1566.001
+    technique_name: Spearphishing Attachment
+    tactic: initial-access
+    description: |
+      Simulates a spear-phishing email with a malicious attachment.
+      In a real scenario, APT28 uses weaponized Office documents.
+    expected_detection:
+      - sigma_phishing_attachment_exec
+      - sigma_office_macro_suspicious
+    lab_only: true
+    target_hosts: []
+
+  - technique_id: T1053.005
+    technique_name: Scheduled Task/Job
+    tactic: persistence
+    description: |
+      Simulates creation of a scheduled task for persistence.
+      APT28 commonly uses Scheduled Tasks to maintain access.
+    expected_detection:
+      - sigma_scheduled_task_creation
+      - sigma_schtasks_suspicious_command
+    lab_only: true
+    target_hosts: []
+
+  - technique_id: T1059.001
+    technique_name: PowerShell
+    tactic: execution
+    description: |
+      Simulates PowerShell execution for payload delivery.
+      APT28 leverages PowerShell for in-memory execution.
+    expected_detection:
+      - sigma_powershell_encoded_command
+      - sigma_powershell_suspicious_download
+    lab_only: true
+    target_hosts: []
+
+  - technique_id: T1078
+    technique_name: Valid Accounts
+    tactic: privilege-escalation
+    description: |
+      Simulates use of compromised valid credentials.
+      APT28 is known to use stolen credentials for lateral movement.
+    expected_detection:
+      - sigma_impossible_travel
+      - sigma_anonymous_logon
+    lab_only: true
+    target_hosts: []

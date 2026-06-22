@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUMMBL Morning Briefing Dashboard</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --border: #334155;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #22c55e;
+            --warn: #eab308;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            background: var(--bg);
+            color: var(--text);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .card h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+        .metric {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .metric.healthy { color: var(--accent); }
+        .metric.warn { color: var(--warn); }
+        .metric.danger { color: var(--danger); }
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .status-row:last-child { border-bottom: none; }
+        .status-label { color: var(--muted); }
+        .status-value { font-weight: 500; }
+        .briefing {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .badge-ok { background: rgba(34, 197, 94, 0.2); color: var(--accent); }
+        .badge-warn { background: rgba(234, 179, 8, 0.2); color: var(--warn); }
+        .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.875rem;
+            text-align: center;
+        }
+        a { color: var(--info); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>HUMMBL Morning Briefing</h1>
+    <p class="subtitle">Multi-agent governance mesh dashboard — <span id="timestamp"></span></p>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Health</h3>
+            <div class="metric healthy" id="health-metric">4/4</div>
+            <p style="color: var(--muted); font-size: 0.875rem;">All adapters responding</p>
+        </div>
+        <div class="card">
+            <h3>Kill Switch</h3>
+            <div class="metric healthy" id="ks-metric">DISENGAGED</div>
+            <p style="color: var(--muted); font-size: 0.875rem;">Normal operation</p>
+        </div>
+        <div class="card">
+            <h3>Budget</h3>
+            <div class="metric warn" id="budget-metric">24%</div>
+            <p style="color: var(--muted); font-size: 0.875rem;">$12.40 / $50.00</p>
+        </div>
+        <div class="card">
+            <h3>Bus Messages</h3>
+            <div class="metric" id="bus-metric">0</div>
+            <p style="color: var(--muted); font-size: 0.875rem;">Coordination events</p>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card" style="grid-column: 1 / -1;">
+            <h3>Circuit Breakers</h3>
+            <div id="circuit-status">
+                <div class="status-row"><span class="status-label">GitHub</span><span class="status-value"><span class="badge badge-ok">CLOSED</span></span></div>
+                <div class="status-row"><span class="status-label">Calendar</span><span class="status-value"><span class="badge badge-ok">CLOSED</span></span></div>
+                <div class="status-row"><span class="status-label">Linear</span><span class="status-value"><span class="badge badge-ok">CLOSED</span></span></div>
+                <div class="status-row"><span class="status-label">Cost Tracker</span><span class="status-value"><span class="badge badge-ok">CLOSED</span></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="briefing" id="briefing-text">
+        Run <code>python showcase.py</code> to generate the briefing.
+    </div>
+
+    <footer>
+        <p>
+            <a href="https://github.com/hummbl-dev/founder-mode-showcase">founder-mode-showcase</a> |
+            <a href="https://github.com/hummbl-dev/hummbl-governance">hummbl-governance</a> |
+            <a href="https://hummbl.io">hummbl.io</a>
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">
+            Built by HUMMBL — Multi-agent AI governance for real teams
+        </p>
+    </footer>
+
+    <script>
+        // Load data from showcase.py output
+        fetch('data.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('briefing-text').textContent = data.briefing;
+                document.getElementById('ks-metric').textContent = data.kill_switch;
+                document.getElementById('bus-metric').textContent = data.bus_messages;
+                if (data.cost) {
+                    const pct = Math.round((data.cost.spent / data.cost.budget) * 100);
+                    document.getElementById('budget-metric').textContent = pct + '%';
+                    document.getElementById('budget-metric').className =
+                        'metric ' + (pct > 80 ? 'danger' : pct > 50 ? 'warn' : 'healthy');
+                }
+                if (data.health) {
+                    const passing = data.health.filter(h => h.status === 'healthy').length;
+                    document.getElementById('health-metric').textContent =
+                        passing + '/' + data.health.length;
+                }
+            })
+            .catch(() => {
+                document.getElementById('briefing-text').textContent =
+                    'Run python showcase.py to generate briefing data.';
+            });
+
+        document.getElementById('timestamp').textContent = new Date().toISOString().slice(0, 10);
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "T1566.001": ["sigma_phishing_attachment_exec", "sigma_office_macro_suspicious"],
+  "T1053.005": ["sigma_scheduled_task_creation"],
+  "T1059.001": ["sigma_powershell_encoded_command"],
+  "T1078": ["sigma_impossible_travel"]
+}
