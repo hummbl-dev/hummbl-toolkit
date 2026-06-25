@@ -1,0 +1,6 @@
+# CODEOWNERS — hummbl-dev/hummbl-toolkit
+# Review authority per path.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+* @hummbl-dev
